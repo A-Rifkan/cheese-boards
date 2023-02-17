@@ -34,5 +34,25 @@ describe('Cheese, Board and User', () => {
         expect(testUser.name).toBe("Rifkan");
         expect(testUser.email).toBe("test@test.com");
     });
+
+    test('can create a Cheese', async () => {
+        const testCheese = await Cheese.create({
+            title: "Cheddar",
+            description: "cheesy"
+        });
+        expect(testCheese.title).toBe("Cheddar");
+        expect(testCheese.description).toBe("cheesy");
+    });
+
+    test('can create a Board', async () => {
+        const testBoard = await Board.create({
+            type: "Cheddar",
+            description: "mmm",
+            rating: 9
+        });
+        expect(testBoard.type).toBe("Cheddar");
+        expect(testBoard.description).toBe("mmm");
+        expect(testBoard.rating).toBe(9);
+    });
 })
   
