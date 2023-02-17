@@ -1,5 +1,5 @@
-const sequelize = require('./db');
-const Sequelize = require('sequelize');
+const {sequelize} = require('./db.js');
+const {Sequelize} = require('sequelize');
 
 const Board = sequelize.define ("Board", {
     type: Sequelize.STRING,

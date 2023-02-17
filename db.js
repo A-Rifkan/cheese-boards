@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const {Sequelize} = require("sequelize");
 const path = require('path');
 
 // TODO - connect to db via sequelize
@@ -7,5 +7,6 @@ const sequelize = new Sequelize({
     storage: path.join(__dirname, "db.sqlite")
 })
 module.exports = {
-    sequelize
+    sequelize,
+    Sequelize
 };
