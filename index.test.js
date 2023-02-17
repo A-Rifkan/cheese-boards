@@ -75,5 +75,30 @@ describe('Cheese, Board and User', () => {
         expect(Number(fetchedBoard[0]["rating"])).toBe(9)
 
     })
+
+    test("Board can have many cheeses", async() => {
+        const testBoard = await Board.create({
+            type: "Cheddar",
+            description: "mmm",
+            rating: 9
+        });
+        const testCheese = await Cheese.create({
+            title: "Cheddar",
+            description: "cheesy"
+        });
+        const testCheese1 = await Cheese.create({
+            title: "Cheddar1",
+            description: "cheesy1"
+        });
+        await testBoard.addCheese(testCheese)
+        await testBoard.addCheese(testCheese1)
+        const fetchedBoard = await testBoard.reload();
+        const fetchedCheese = await fetchedBoard.getCheeses();
+        expect(fetchedCheese[0]["title"]).toContain("Cheddar")
+        expect(fetchedCheese[1]["title"]).toContain("Cheddar1")
+        expect(fetchedCheese[0]["description"]).toContain("cheesy")
+        expect(fetchedCheese[1]["description"]).toContain("cheesy1")
+    })
+    
 })
   
