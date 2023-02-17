@@ -25,7 +25,8 @@ describe('Cheese, Board and User', () => {
         //After all tests finish drop the tables
         await sequelize.drop();
     })
-  
+
+    //Test the models
     test('can create a User', async () => {
         const testUser = await User.create({
             name: "Rifkan",
@@ -54,5 +55,25 @@ describe('Cheese, Board and User', () => {
         expect(testBoard.description).toBe("mmm");
         expect(testBoard.rating).toBe(9);
     });
+
+    //Test the associations
+    test("User and Board has one to many relationship", async() => {
+        const testUser = await User.create({
+            name: "Rifkan",
+            email: "test@test.com"
+        });
+        const testBoard = await Board.create({
+            type: "Cheddar",
+            description: "mmm",
+            rating: 9
+        });
+        await testUser.addBoard(testBoard)
+        const fetchedUser = await testUser.reload();
+        const fetchedBoard = await fetchedUser.getBoards();
+        expect(fetchedBoard[0]["type"]).toContain("Cheddar")
+        expect(fetchedBoard[0]["description"]).toContain("mmm")
+        expect(Number(fetchedBoard[0]["rating"])).toBe(9)
+
+    })
 })
   
